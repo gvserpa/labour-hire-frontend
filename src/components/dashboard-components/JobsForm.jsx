@@ -59,7 +59,6 @@ const JobsForm = ({
         Saturday: false,
         Sunday: false,
       });
-      window.location.reload();
     } catch (err) {
       console.error("Error adding available user:", err);
       alert(

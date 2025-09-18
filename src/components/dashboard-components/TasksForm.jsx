@@ -34,7 +34,6 @@ const TasksForm = ({ addTask, loadingUser }) => {
       setTime("");
       setRate("");
       setHours("");
-      window.location.reload();
     } catch (err) {
       console.error("Error creating task:", err);
       alert("Erro ao criar task. Verifique os campos e tente novamente.");

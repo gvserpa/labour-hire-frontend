@@ -25,7 +25,6 @@ function OfferModal({ task, userId, onClose, onSubmit, onUpdateOfferStatus }) {
 
       setAmount("");
       setComment("");
-      window.location.reload();
     } catch (err) {
       console.error("Erro ao enviar oferta:", err);
       alert("Erro ao enviar oferta");
