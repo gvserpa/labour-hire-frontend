@@ -1,5 +1,8 @@
 # Labour Hire Frontend
 
+## LIVE MODE
+[Labour Hire Frontend - Live](https://labour-hire-frontend.vercel.app/)
+
 ## Description
 The **Labour Hire Frontend** is the client-side of the full-stack Labour Hire project.  
 It provides a **modern, responsive and dynamic user interface** that connects to the backend API hosted on Render.  
