@@ -1,0 +1,264 @@
+main {
+    display: flex;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main button {
+    cursor: pointer;
+}
+
+
+
+.main-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.form-title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vw;
+    text-align: center;
+    width: 20vw;
+    min-width: 250px;
+    max-width: 400px;
+    gap: 1vw;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input {
+    width: 20vw;
+    min-width: 250px;
+    max-width: 400px;
+    border-radius: 10px;
+    padding: 1vw;
+    border: 0.2px solid rgb(202, 202, 202);
+    outline: none;
+    font-size: 1rem;
+}
+
+form input:focus {
+    border-color: blueviolet;
+}
+
+form a {
+    text-decoration: none;
+    color: blueviolet;
+    margin-bottom: 1vw;
+    font-weight: bold;
+}
+
+.remember-d {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 20vw;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 1vw 0;
+}
+
+/* Switch container */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: blueviolet;
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+.divider {
+    display: flex;
+    margin: 1vw 0;
+    gap: 2vw;
+    width: 20vw;
+    min-width: 250px;
+    max-width: 400px;
+}
+
+.divider hr {
+    width: 100%;
+    border: 1px solid rgb(202, 202, 202);
+    height: 1px;
+    margin-top: 1vw;
+}
+
+.main-content button {
+  margin-top: 15px;
+    padding: 14px 28px;
+    width: 20vw;
+    min-width: 250px;
+    max-width: 400px;
+    border-radius: 20px;
+    background-color: blueviolet;
+    color: white;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.main-content button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.signup {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.signup a {
+    text-decoration: none;
+    color: blueviolet;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    padding-top: 2vw;
+    font-size: 1rem;
+}
+
+/* ===== Input container com label flutuante ===== */
+.input-container {
+    position: relative;
+    width: 20vw;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 1vw 0;
+}
+
+.input-container input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 1vw;
+    border: 0.2px solid rgb(202, 202, 202);
+    outline: none;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.input-container input:focus {
+    border-color: blueviolet;
+}
+
+.input-container label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background-color: white;
+    padding: 0 6px;
+    color: #999;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}
+
+.input-container input:focus + label,
+.input-container input:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: blueviolet;
+}
+
+/* ===== RESPONSIVO ===== */
+
+/* Tablets */
+@media screen and (max-width: 1024px) {
+    main {
+        flex-direction: column; 
+        align-items: center;
+    }
+}
+
+/* Celulares */
+@media screen and (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-title,
+    form input,
+    .remember-d,
+    .divider,
+    .main-content button,
+    .input-container {
+        width: 90vw; 
+        min-width: unset;
+        max-width: unset;
+    }
+
+    .divider hr {
+        width: 90vw;
+    }
+
+    .form-title {
+        margin-bottom: 20px;
+    }
+
+    form input {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .main-content button {
+      margin-top: 10px;
+      margin-bottom: 10px;
+        padding: 12px 24px;
+    }
+
+    .signup {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

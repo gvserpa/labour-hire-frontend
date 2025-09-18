@@ -1,0 +1,67 @@
+.img-content {
+  position: relative; /* necessário para o overlay */
+  background-image: url(../../assets/labour.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 30vw;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.img-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* tonalidade preta com transparência */
+  z-index: 1;
+}
+
+.img-content > * {
+  position: relative; /* mantém o conteúdo acima do overlay */
+  z-index: 2;
+}
+
+.title-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title-content h1 {
+  margin-bottom: 20px;
+}
+
+/* ----- RESPONSIVO ----- */
+
+/* Tablets (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+  .img-content {
+    width: 50vw;
+    padding: 30px;
+  }
+  .title-content h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Celulares (até 768px) */
+@media screen and (max-width: 768px) {
+  .img-content {
+    width: 100vw;
+    height: 60vh;
+    padding: 20px;
+  }
+  .title-content h1 {
+    font-size: 1.5rem;
+  }
+  .title-content {
+    gap: 5px;
+  }
+}

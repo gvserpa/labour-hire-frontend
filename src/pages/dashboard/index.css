@@ -1,0 +1,782 @@
+/* Global */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout geral */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 320px;
+  background-color: #1f2937;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.menu li {
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.18s ease, color 0.18s ease;
+  color: #e5e7eb;
+}
+
+.menu li:hover,
+.menu li.active {
+  background-color: #374151;
+  color: #fff;
+}
+
+.sidebar-footer {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.user-email {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.logout-button:hover {
+  background-color: #f87171;
+}
+
+/* Main content */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  height: 100%;
+  padding: 50px;
+}
+
+/* Columns as cards */
+.card-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(12, 18, 26, 0.08);
+  min-height: 420px;
+}
+
+/* Section Card (inner) */
+.section-card {
+  background-color: #fbfdff;
+  border-radius: 10px;
+  padding: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 14px rgba(8, 12, 20, 0.06);
+}
+
+.section-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #0f1724;
+  font-weight: 700;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 8px;
+}
+
+/* Task Card */
+.task-card {
+  position: relative;                 /* necessário para posicionar o botão absoluto */
+  display: flex;
+  flex-direction: column;             /* mantém título + meta em coluna */
+  gap: 8px;
+  background: linear-gradient(180deg, #f2f8ff 0%, #eef6ff 100%);
+  padding: 14px 56px 14px 14px;       /* padding-right maior para "reserva" do botão */
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(10, 24, 40, 0.06);
+  margin-bottom: 12px;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+  overflow: visible;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(10, 24, 40, 0.09);
+}
+
+/* Conteúdo interno da task */
+.task-info h4 {
+  margin: 0;
+  font-size: 15px;
+  color: #0b1220;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.task-info p {
+  margin: 6px 0 0 0;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.35;
+}
+
+/* meta (date/time/rate/hours) */
+.task-meta-group {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.task-meta {
+  display: inline-block;
+  font-size: 13px;
+  color: #6b7280;
+  background: rgba(15, 23, 36, 0.03);
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+/* Delete Button - fixado, pequeno e sem ocupar muito espaço */
+.task-card .delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  width: auto;               /* garante que não estique */
+  min-width: 48px;
+  height: 28px;
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: background 0.12s ease, transform 0.12s;
+  box-sizing: border-box;
+}
+
+.task-card .delete-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* garantia extra para evitar regras genéricas sobrepor o botão */
+.task-card .delete-btn,
+.task-card button.delete-btn {
+  width: auto !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+  height: 28px !important;
+}
+
+/* Rankings Card */
+.ranking-card {
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(12, 18, 26, 0.12);
+  transition: transform 0.12s ease;
+}
+
+/* Estrelas */
+.stars {
+  margin-top: 8px;
+}
+.star {
+  color: rgba(255,255,255,0.55);
+  font-size: 16px;
+  margin: 0 2px;
+}
+.star.filled { color: #fff; }
+
+/* Available Users */
+.available-users {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.available-users ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.available-users li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e6eef9;
+  font-weight: 600;
+  color: #0f1724;
+}
+.available-users li:last-child { border-bottom: none; }
+.status-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #10b981;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Forms (Jobs/Tasks) */
+.jobs-form,
+.tasks-form {
+  width: 50vw;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(12, 18, 26, 0.06);
+}
+
+.tasks-form textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  resize: vertical;
+}
+
+.tasks-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.jobs-form input,
+.tasks-form input,
+.jobs-form select,
+.tasks-form select {
+  width: 20vw;
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+/* form submit buttons (kept distinct from delete button) */
+.jobs-form button[type="submit"],
+.tasks-form button[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.jobs-form button[type="submit"]:hover,
+.tasks-form button[type="submit"]:hover {
+  background-color: #60a5fa;
+}
+
+.days-checkbox {
+  text-align: center;
+}
+
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.form-section h2 {
+  margin-bottom: 24px;
+}
+
+/* Wrapper interno dos cards para scroll */
+.tasks-wrapper {
+  max-height: 280px; /* altura fixa do conteúdo */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px; /* evita que scroll encoste no conteúdo */
+}
+
+/* Scrollbar suave e minimalista */
+.tasks-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.tasks-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+.tasks-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(59, 130, 246, 0.3);
+  border-radius: 3px;
+}
+
+/* Paginação minimalista */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.pagination button {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  color: #6b7280;
+  transition: all 0.15s ease;
+}
+
+.pagination button.active {
+  color: #1e40af;
+  border-bottom-color: #1e40af;
+  font-weight: 600;
+}
+
+.pagination button:hover {
+  color: #3b82f6;
+}
+
+
+/* Available User Card (igual a task-card) */
+.available-user-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(180deg, #f2f8ff 0%, #eef6ff 100%);
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(10, 24, 40, 0.06);
+  margin-bottom: 12px;
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+
+.available-user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(10, 24, 40, 0.09);
+}
+
+.available-user-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.available-user-card p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  color: #374151;
+}
+
+
+/* Status das Tasks */
+.task-status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Cores de status */
+.task-status.pending { background-color: #facc15; color: #1f2937; }     /* amarelo */
+.task-status.in-progress { background-color: #3b82f6; color: #fff; }    /* azul */
+.task-status.completed { background-color: #10b981; color: #fff; }      /* verde */
+.task-status.cancelled { background-color: #ef4444; color: #fff; }      /* vermelho */
+
+/* Offers Wrapper */
+.offers-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+/* Offer Card */
+.offer-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eef6ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0f1724;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Buttons de Accept / Reject dentro do offer */
+.offer-card button {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: all 0.12s ease;
+}
+
+.offer-card button:first-child { background-color: #10b981; color: #fff; }
+.offer-card button:first-child:hover { background-color: #059669; }
+
+.offer-card button:last-child { background-color: #ef4444; color: #fff; }
+.offer-card button:last-child:hover { background-color: #dc2626; }
+
+/* Botão enviar offer */
+.offer-card-send {
+  align-self: flex-start;
+  background-color: #3b82f6;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.12s ease;
+}
+
+.offer-card-send:hover {
+  background-color: #60a5fa;
+}
+
+.offer-info {
+  display: flex;
+  margin-left: 6px;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 200px;
+}
+
+
+/* Garantia de scroll suave se houver muitas offers */
+.offers-wrapper {
+  max-height: 550px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.offers-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.offers-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.offers-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+
+/* Overlay cobrindo a coluna esquerda inteira */
+.offer-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%; /* cobre só a coluna esquerda */
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* leve sombra */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.offer-modal {
+  width: 60%; /* ou 70% da tela */
+  height: 70%; /* ocupa até 80% da altura da tela */
+  background-color: #f0efef;
+  border-radius: 8px;
+  padding: 20px;
+  overflow: hidden; /* esconde overflow externo */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Botão X */
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Descrição da task */
+.task-description {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* Wrapper das ofertas */
+.offers-wrapper {
+  flex: 1; /* ocupa espaço disponível */
+  overflow-y: auto; /* ativa scroll vertical se necessário */
+  margin: 10px 0;
+  padding-right: 5px; /* para não cortar scrollbar */
+  max-height: 400px; /* altura máxima para ofertas */
+}
+
+/* Ofertas vazias */
+.no-offers {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+/* Inputs */
+.offer-inputs input,
+.offer-inputs textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: none;
+}
+
+/* Botão de enviar oferta */
+.submit-offer-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submit-offer-btn:hover {
+  background-color: #0056b3;
+}
+
+/* ---------- RESPONSIVIDADE ---------- */
+
+/* Tablets (até 1024px) */
+@media screen and (max-width: 1024px) {
+
+  .jobs-form {
+    width: 80vw;
+  }
+
+  .jobs-form input, .jobs-form select {
+    width: 60vw;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+  }
+
+  .sidebar {
+    width: 240px;
+  }
+
+  .offer-info {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile (até 768px) */
+@media screen and (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Sidebar vira header */
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+  }
+
+  .logo {
+    margin-bottom: 0;
+    font-size: 18px;
+  }
+
+  .menu {
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .menu li {
+    margin-bottom: 0;
+    font-size: 14px;
+    padding: 8px 10px;
+    white-space: nowrap;
+  }
+
+  .sidebar-footer {
+    display: none; /* economiza espaço */
+  }
+
+  /* Conteúdo */
+  .main-content {
+    padding: 12px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 12px;
+  }
+
+  .card-column {
+    min-height: auto;
+    padding: 12px;
+  }
+
+  /* Tasks */
+  .task-card {
+    padding: 12px 44px 12px 12px;
+    font-size: 14px;
+  }
+
+  .task-info h4 {
+    font-size: 14px;
+  }
+
+  .task-info p {
+    font-size: 13px;
+  }
+
+  /* Offers */
+  .offer-info {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .offer-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .offer-card button {
+    width: 100%; /* botões full width */
+  }
+
+  /* Modal ocupa mais espaço */
+  .offer-modal-overlay {
+    width: 100%;
+  }
+
+  .offer-modal {
+    width: 90%;
+    height: 80%;
+  }
+}
+
+/* Mobile pequeno (até 480px) */
+@media screen and (max-width: 480px) {
+  .logo {
+    font-size: 16px;
+  }
+
+  .menu li {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  .task-card .delete-btn {
+    font-size: 11px !important;
+    min-width: 40px;
+    height: 24px !important;
+  }
+
+  .offer-card button {
+    font-size: 11px;
+    padding: 6px;
+  }
+}
