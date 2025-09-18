@@ -35,7 +35,7 @@ function Dashboard() {
   const [allTasksPage, setAllTasksPage] = useState(1);
   const [driversPage, setDriversPage] = useState(1);
   const [offsidersPage, setOffsidersPage] = useState(1);
-  const itemsPerPage = { jobs: 2, allTasks: 3, users: 3 };
+  const itemsPerPage = { jobs: 900, allTasks: 900, users: 900 };
 
   // --- Modal Offer ---
   const [offerModalTask, setOfferModalTask] = useState(null);
