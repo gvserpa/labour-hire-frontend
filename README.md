@@ -27,19 +27,6 @@ The frontend is built with **React (Vite)**, following component-based architect
 - **Vercel** – frontend hosting
 - **Render** – backend hosting
 
-## 📂 Frontend Structure
-labour-hire-frontend/
- ├─ public/             # Static assets
- ├─ src/
- │   ├─ components/     # Reusable UI components
- │   ├─ pages/          # Application pages (Login, Signup, Dashboard, Tasks, etc.)
- │   ├─ services/       # API services (Axios instances, authentication, tasks, offers)
- │   ├─ context/        # Context API providers (auth, user state)
- │   ├─ App.jsx         # Root component
- │   └─ main.jsx        # Application entry point
- ├─ .env.example        # Example environment variables
- ├─ package.json        # Project dependencies
- └─ vite.config.js      # Vite configuration
 
 ## ⚙️ Features
 - **Authentication**
